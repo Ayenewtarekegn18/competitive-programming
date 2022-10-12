@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> soln;
+        for(auto& i:tokens)
+            if (i=="+"||i=="-"||i=="*"||i=="/")
+            {
+                long long x;
+                x=soln.top();
+                soln.pop();
+                long long y;
+                y=soln.top();
+                soln.pop();
+             
+                   if(i=="+")   x=y+x;
+                    if(i=="-")  x=y-x;
+                    if(i=="*")  x=y*x;
+                    if(i=="/")  x=y/x;
+                soln.push(x);
+            }
+            else soln.push(stoi(i));         
+        return soln.top();
+    }
+};
