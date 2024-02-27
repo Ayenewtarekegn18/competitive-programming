@@ -1,22 +1,22 @@
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        v = []
-        
-        for num in nums1:
-            j = 0
+        mono = []
+        di = defaultdict(int)
+        i = 0
+        while i < len(nums2):
+                if mono and nums2[i] > mono[-1]:
+                    di[mono[-1]] = nums2[i]
+                    mono.pop()
+                else:   
+                    mono.append(nums2[i])
+                    i +=1
+        for j in range(len(nums1)):
+            if nums1[j] in di:
+                nums1[j] = di[nums1[j]]
+            else:
+                nums1[j] = -1
+
+        return nums1
             
-            for j in range(len(nums2)):
-                if nums2[j] == num:
-                    break
-            
-            found_greater = False
-            for k in range(j + 1, len(nums2)):
-                if nums2[k] > nums2[j]:
-                    v.append(nums2[k])
-                    found_greater = True
-                    break
-            
-            if not found_greater:
-                v.append(-1)
-        
-        return v
+
+
